@@ -1,5 +1,7 @@
 import zc.buildout.download
 
+__VERSION__ = 0, 1, 'dev1'
+
 FALSE_VALUES = ('no', 'false', '0', 'off')
 
 _original_methods = {}
@@ -31,25 +33,28 @@ def ext(buildout):
 
     # default = true
     allow_picked_downloads = \
-        buildout['pinpickeddownloads'] and \
-        buildout['pinpickeddownloads']['allow-picked-downloads'] and \
-        buildout['pinpickeddownloads']['allow-picked-downloads'].strip() not in FALSE_VALUES
+        'buildout' in buildout and \
+        'allow-picked-downloads' in buildout['buildout'] and \
+        buildout['buildout']['allow-picked-downloads'].strip() not in FALSE_VALUES
 
-    print "Don't allow picking downloads that have no md5sums"
 
-    for line in buildout['pinpickeddownloads']['md5sums'].splitlines():
-        try:
-            url, md5sum = line.split("=")
-        except ValueError:
-            continue
+    if not allow_picked_downloads:
+        print "Don't allow picking downloads that have no md5sums"
 
-        url = url.strip()
-        md5sum = md5sum.strip()
+    if 'md5sums' in buildout['buildout']:
+        for line in buildout['buildout']['md5sums'].splitlines():
+            try:
+                url, md5sum = line.split("=")
+            except ValueError:
+                continue
 
-        if url.startswith("#"):
-            continue
+            url = url.strip()
+            md5sum = md5sum.strip()
 
-        md5sums[url] = md5sum
+            if url.startswith("#"):
+                continue
+
+            md5sums[url] = md5sum
 
     # I'm in your monkey patching your buildout!
     def intercept_md5sum(fun):
@@ -57,9 +62,10 @@ def ext(buildout):
             args, kwargs = _replace_parameters(md5sums, args, kwargs)
 
             if not allow_picked_downloads:
-                assert ('md5sum' in kwargs and kwargs['md5sum']) or \
-                        (len(args) > 2) and args[2], \
-                    "Attempting to download %s without md5sum" % args[1]
+                if not (('md5sum' in kwargs and kwargs['md5sum']) or \
+                        (len(args) > 2) and args[2]):
+                    raise zc.buildout.UserError(
+                        "Attempting to download %s without md5sum" % args[1])
 
             return fun(*args, **kwargs)
         inner.__doc__ = fun.__doc__
