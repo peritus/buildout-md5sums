@@ -1,2 +1,7 @@
 .installed.cfg
 bin/buildout
+bin/test
+buildout_md5sums.egg-info/
+develop-eggs/
+dist/
+parts/
