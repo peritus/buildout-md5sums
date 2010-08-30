@@ -1,6 +1,6 @@
 import zc.buildout.download
 
-__VERSION__ = 0, 1, 'dev1'
+__VERSION__ = 0, 1, 'a1'
 
 FALSE_VALUES = ('no', 'false', '0', 'off')
 
