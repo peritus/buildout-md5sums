@@ -1,6 +1,14 @@
 from setuptools import setup
+from os.path import join, dirname
 
 import buildout_md5sums
+
+description = (
+  'A zc.builout extension that allows you to specify and '
+  'enforce md5 checksums for all downloads'
+)
+
+long_description = description + open(join(dirname(__file__), "README.rst")).read()
 
 name = "buildout-md5sums"
 
@@ -9,6 +17,8 @@ setup(
     author_email='filip+pypi@j03.de',
     license='Beerware',
     name=name,
+    long_description=long_description,
+    description=description,
     packages = ['buildout_md5sums'],
     url='http://www.python.org/pypi/'+name,
     version = ".".join(str(n) for n in buildout_md5sums.__VERSION__),
