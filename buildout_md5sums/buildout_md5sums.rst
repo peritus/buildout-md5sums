@@ -38,6 +38,7 @@ buildout-md5sums
 ... newest = false
 ... extensions = buildout-md5sums
 ... download-cache = download-cache
+... allow-picked-downloads = false
 ... parts = self unspecified
 ...
 ... [self]
@@ -74,6 +75,7 @@ You can specify the md5sum as part of the url in two ways:
 ... develop = %(develop)s
 ... newest = false
 ... extensions = buildout-md5sums
+... allow-picked-downloads = false
 ... download-cache = download-cache
 ... md5sums =
 ...   http://localhost:%(port)d/1dcca23355272056f04fe8bf20edfce0 = 1dcca23355272056f04fe8bf20edfce0

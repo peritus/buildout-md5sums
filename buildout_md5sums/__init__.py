@@ -36,10 +36,11 @@ def ext(buildout):
     md5sums = {}
 
     # default = true
-    allow_picked_downloads = \
-        'buildout' in buildout and \
-        'allow-picked-downloads' in buildout['buildout'] and \
-        buildout['buildout']['allow-picked-downloads'].strip() not in FALSE_VALUES
+    allow_picked_downloads = not (
+      'buildout' in buildout and \
+      'allow-picked-downloads' in buildout['buildout'] and \
+      buildout['buildout']['allow-picked-downloads'].strip() in FALSE_VALUES
+    )
 
     if not allow_picked_downloads:
         print "We won't allow picking downloads that have no md5sums"
