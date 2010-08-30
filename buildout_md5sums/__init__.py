@@ -13,16 +13,20 @@ def _replace_parameters(md5sums, args, kwargs):
 
     if not chosen and '#md5' in url:
         try:
-            _, chosen = url.split("#md5=")
-            _, chosen = url.split("#md5sum=")
+            url, chosen = url.split("#md5=")
         except ValueError, e:
-            pass
+            try:
+                url, chosen = url.split("#md5sum=")
+            except:
+                pass
 
     if chosen:
         if 'md5sum' in kwargs:
             kwargs['md5sum'] = chosen
         elif len(args) > 2:
             args = args[:2] + (chosen,) + args[3:]
+
+    args = args[:1] + (url,) + args[2:]
 
     return args, kwargs
 
@@ -37,9 +41,8 @@ def ext(buildout):
         'allow-picked-downloads' in buildout['buildout'] and \
         buildout['buildout']['allow-picked-downloads'].strip() not in FALSE_VALUES
 
-
     if not allow_picked_downloads:
-        print "Don't allow picking downloads that have no md5sums"
+        print "We won't allow picking downloads that have no md5sums"
 
     if 'md5sums' in buildout['buildout']:
         for line in buildout['buildout']['md5sums'].splitlines():

@@ -13,7 +13,7 @@ setup(
     url='http://www.python.org/pypi/'+name,
     version = ".".join(str(n) for n in buildout_md5sums.__VERSION__),
     install_requires = [
-        'zc.buildout==1.5.0',
+        'zc.buildout<=1.5.1',
     ],
     extras_require = dict(
         test=[
