@@ -8,7 +8,7 @@ description = (
   'enforce md5 checksums for all downloads'
 )
 
-long_description = description + open(join(dirname(__file__), "README.rst")).read()
+long_description = open(join(dirname(__file__), "README.rst")).read()
 
 name = "buildout-md5sums"
 
@@ -36,8 +36,8 @@ setup(
             ],
         ),
     entry_points = {
-       'zc.buildout.extension': ['ext = buildout_md5sums:ext'],
-       'zc.buildout.unloadextension': ['ext = buildout_md5sums:unload'],
+       'zc.buildout.extension': ['ext = buildout_md5sums.plugin:ext'],
+       'zc.buildout.unloadextension': ['ext = buildout_md5sums.plugin:unload'],
        },
     )
 
