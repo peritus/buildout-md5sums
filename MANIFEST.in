@@ -1,1 +1,2 @@
 include buildout_md5sums/*.rst
+include *.rst
