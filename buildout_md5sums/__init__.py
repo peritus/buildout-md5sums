@@ -1,3 +1,3 @@
 
-__VERSION__ = 0, '1a2'
+__VERSION__ = 0, 1
 
