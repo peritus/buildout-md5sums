@@ -20,4 +20,3 @@ def test_suite():
           optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
         ),
     ])
-

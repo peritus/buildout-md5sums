@@ -95,4 +95,3 @@ def unload(buildout):
     zc.buildout.download.Download.__call__ = _original_methods['__call__']
     zc.buildout.download.Download.download = _original_methods['download']
     zc.buildout.download.Download.download_cached = _original_methods['download_cached']
-

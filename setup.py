@@ -40,4 +40,3 @@ setup(
        'zc.buildout.unloadextension': ['ext = buildout_md5sums.plugin:unload'],
        },
     )
-
